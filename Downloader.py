@@ -127,7 +127,7 @@ def _test_write(path):
         return
     finally:
         try:
-            os.remove(path)
+            os.remove(test_file)
         except Exception as e:
             #print('deleting test write failed: ',e) 
             pass
