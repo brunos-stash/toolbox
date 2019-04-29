@@ -10,6 +10,9 @@ Toolbox is a collection of small useful and often used scripts to avoid rewritin
 ## Requirements
 - **`requests`**
 ---
+## TO DO
+- add unit tests
+
 ## Add toolbox to PYTHONPATH
 If you're using bash (on a Mac or GNU/Linux distro), add this to your ~/.bashrc
 
