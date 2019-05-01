@@ -13,7 +13,8 @@ Toolbox is a collection of small useful and often used scripts to avoid rewritin
 - use urlib instead requests to make it python standalone
 - add unit tests
 ---
-## Add toolbox to PYTHONPATH
+## How to use
+Add toolbox to PYTHONPATH
 If you're using bash (on a Mac or GNU/Linux distro), add this to your ~/.bashrc
 
     export PYTHONPATH="${PYTHONPATH}:/path/to/toolbox"
