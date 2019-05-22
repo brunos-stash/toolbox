@@ -8,10 +8,13 @@ class Downloader:
     """
     class do manage downloading url links
     """
-    def __init__(self, *args, **kwargs): # creates a session
+    def __init__(self, *args, session=None): # creates a session
         self.cwd = Path.cwd()
         self.src_path = Path(__file__)
-        self.session = rq.Session()
+        if not session:
+            self.session = rq.Session()
+        else:
+            self.session = session
         # super().__init__(*args, **kwargs)
 
     def _get_bar(self, progress):
@@ -36,12 +39,16 @@ class Downloader:
         Parses the name and returns a writebale name
         """
         try:
-            clean_name = re.search(r'\w+',name_in).group() # parsing name, only alphanumeric, no whitespace    
+            # clean_name = re.search(r'\w+',name_in).group() # parsing name, only alphanumeric, no whitespace
+            name = re.split(r'[.]\w+$',name_in)[0] # name without extension
+            clean_name = ' '.join(re.findall(r'\w+',name)) # parsing name, only alphanumeric, no whitespace
+                
         except :
             print('illegal name, taking name from url')
             return url_path.name
         try:
-            extension = re.search(r'(?<=[.]\w+$)', name_in).group() # matching only extension after last "."
+            # extension = re.search(r'(?<=[.]\w+$)', name_in).group() # matching only extension after last "."
+            extension = name_in.split('.')[-1] # matching only extension after last "."
         except:
             extension = None
         if extension:
