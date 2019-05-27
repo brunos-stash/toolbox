@@ -38,23 +38,31 @@ class Downloader:
         """
         Parses the name and returns a writebale name
         """
+        # in case its a number and  not None
+        if name_in and name_in != type(str):
+            name_in = str(name_in)
+
         try:
+            name_in[0] # if its empty it raises exception
             # clean_name = re.search(r'\w+',name_in).group() # parsing name, only alphanumeric, no whitespace
-            name = re.split(r'[.]\w+$',name_in)[0] # name without extension
-            clean_name = ' '.join(re.findall(r'\w+',name)) # parsing name, only alphanumeric, no whitespace
-                
+            name = re.split(r'[.].+$',name_in)[0] # name without extension
+            clean_name = ' '.join(re.findall(r'\w+.+',name)) # parsing name, only alphanumeric, no whitespace
+            clean_name[0] # empty testing
         except :
-            print('illegal name, taking name from url')
-            return url_path.name
+            print('invalid name, taking name from url')
+            name = re.split(r'[?]',url_path.name)[0] # if '?' in url, get rid of it
+            return name
         try:
-            # extension = re.search(r'(?<=[.]\w+$)', name_in).group() # matching only extension after last "."
-            extension = name_in.split('.')[-1] # matching only extension after last "."
+            extension = re.search(r'(?<=[.])\w+$', name_in).group() # matching only extension after last "."
+            # extension = name.split('.')[-1] # matching only extension after last "."
         except:
             extension = None
         if extension:
             name_path = Path(f'{clean_name}.{extension}') # custom extension specified and not in the name
         else:
-            name_path = Path(f'{clean_name}{url_path.suffix}') # extension from url
+            name = re.split(r'[?]',url_path.name)[0] # if '?' in url, get rid of it
+            extension = re.search(r'(?<=[.])\w+$', name).group() # matching only extension after last "."
+            name_path = Path(f'{clean_name}.{extension}') # extension from url
         return name_path.name
 
 
@@ -69,10 +77,7 @@ class Downloader:
         """
         url_path = Path(url)
         #download_path = self.cwd / url_path.name if not d_path else Path(d_path)
-        if not name_out:
-            name_out = url_path.name
-        else:
-            name_out = self._make_name(url_path, name_out)
+        name_out = self._make_name(url_path, name_out)
 
         if not d_path:
             # download_path = self.src_path.parent
@@ -144,5 +149,5 @@ if __name__ == "__main__":
     d_path = input_loop() #let user decide where to download
     name = name_loop() # let user decide what name it will have
     d = Downloader()
-    #d_path = input('download path:')
-    d.download('http://i.4cdn.org/gif/1556302608616.webm',d_path, name)
+    test_image_url = 'https://images.pexels.com/photos/459793/pexels-photo-459793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' 
+    d.download(test_image_url, d_path, name)
