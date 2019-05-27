@@ -11,7 +11,7 @@ Toolbox is a collection of small useful and often used scripts to avoid rewritin
 - **`requests`**
 ## TO DO
 - use urlib instead requests to make it python standalone
-- add unit tests
+- ~~add unit tests~~
 ---
 ## How to use
 Add toolbox to PYTHONPATH
