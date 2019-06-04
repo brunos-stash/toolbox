@@ -26,7 +26,7 @@ If you're using bash (on a Mac or GNU/Linux distro), add this to your ~/.bashrc
 
 Under system variables create a new Variable called PythonPath. In this variable I have 
 
-    C:\Python27\Lib;C:\Python27\DLLs;C:\Python27\Lib\lib-tk;C:\other-folders-on-the-path
+    C:\Python37\Lib;C:\Python37\DLLs;C:\Python37\Lib\lib-tk;C:\other-folders-on-the-path
 
 ![alt text](https://i.stack.imgur.com/ZGp36.png "Logo Title Text 1")
 
