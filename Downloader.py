@@ -45,8 +45,13 @@ class Downloader:
         try:
             name_in[0] # if its empty it raises exception
             # clean_name = re.search(r'\w+',name_in).group() # parsing name, only alphanumeric, no whitespace
-            name = re.split(r'[.].+$',name_in)[0] # name without extension
-            clean_name = ' '.join(re.findall(r'\w+.+',name)) # parsing name, only alphanumeric, no whitespace
+            # name = re.split(r'[.].+$',name_in)[0] # name without extension
+            name_parts = name_in.split('.') # name without extension
+            if len(name_parts) > 1:
+                name_noext = '.'.join(name_parts[:-1]) # joining together without extension
+            else:
+                name_noext = name_parts[0]
+            clean_name = ' '.join(re.findall(r'\w+.+',name_noext)) # parsing name, only alphanumeric, no whitespace
             clean_name[0] # empty testing
         except :
             print('invalid name, taking name from url')
