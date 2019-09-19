@@ -3,11 +3,10 @@ from sys import stdout
 from pathlib import Path
 import re
 import os
-print('something new')
 
 class Downloader:
     """
-    class do manage downloading url links
+    class to manage downloading url links
     """
     def __init__(self, *args, session=None): # creates a session
         self.cwd = Path.cwd()
@@ -80,13 +79,15 @@ class Downloader:
 
     def download(self, url, d_path=None, name_out=None, printprogess=False):
         """
-        downloads from url
+        Downloads from url
 
-        `d_path`: default download path is current working directory
-        
-        `name_out`: default name will be the tail of the url address
-                can take in a name with or without extension(takes extension from url)
-        `printprogress`: will print current download progress in terminal
+        `d_path`: Default download path is current working directory.
+    
+        `name_out`: Default name is the tail of the url address,
+            can take in a name with or without extension, 
+            takes extension from url if not specified.
+
+        `printprogress`: Prints current download progress in terminal.
         """
         url_path = Path(url)
         #download_path = self.cwd / url_path.name if not d_path else Path(d_path)

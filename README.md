@@ -1,7 +1,7 @@
 # What's toolbox
 Toolbox is a collection of small useful and often used scripts to avoid rewriting 
 ## Modules:
-- **`Downloader.py`**
+- **`web.py`**
     - makes it easy to download from URLS
     - shows progress in terminal
     - makes file names writeable (checks for invalid characters)
@@ -13,19 +13,18 @@ Toolbox is a collection of small useful and often used scripts to avoid rewritin
 ## How to install
 
 ### Fresh installation
-1.  `git clone https://github.com/brunos-stash/toolbox.git`
+1. **[optional]** activate virtual environment
 
-2.  `cd /path/to/toolbox`
+2.  `git clone https://github.com/brunos-stash/toolbox.git`
 
-- **[optional]** activate virtual environment
+3.  `cd /path/to/toolbox`
 
-3.  depending on your python version
+4.  depending on your python version
 
         python setup.py install
-    
-    or
-
         python3 setup.py install
+        python3.7 setup.py install
+
 
 ### Updating after installation (Linux only)
 
