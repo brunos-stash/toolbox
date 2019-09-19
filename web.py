@@ -16,6 +16,12 @@ class Downloader:
         else:
             self.session = session
         # super().__init__(*args, **kwargs)
+    
+    def _print_progress(self, current_bytes, size):
+        bar = self._get_bar(current_bytes / size)
+        output = f'\r{bar} {current_bytes/1000000:0.2f} / {size/1000000:0.2f} MB'
+        stdout.write(output)
+        # stdout.flush()
 
     def _get_bar(self, progress):
         """
@@ -25,11 +31,11 @@ class Downloader:
         FULL_BLOCKLENGTH = 32
         fillblock = '█'
 
-        blocks = int(progress / (1/FULL_BLOCKLENGTH))
-        bar_start = '\r'+fillblock*blocks
-        bar_end = (33 - len(bar_start))*'_'+'|'
         if progress > 1:
             progress = 1
+        blocks = int(progress / (1/FULL_BLOCKLENGTH))
+        bar_start = fillblock*blocks
+        bar_end = (33 - len(bar_start))*'_'+'|'
         bar_percent = f' {progress*100:0.2f} % '
         text = bar_start+bar_end+bar_percent
         return text
@@ -71,7 +77,7 @@ class Downloader:
         return name_path.name
 
 
-    def download(self, url, d_path=None, name_out=None):
+    def download(self, url, d_path=None, name_out=None, printprogess=False):
         """
         downloads from url
 
@@ -79,6 +85,7 @@ class Downloader:
         
         `name_out`: default name will be the tail of the url address
                 can take in a name with or without extension(takes extension from url)
+        `printprogress`: will print current download progress in terminal
         """
         url_path = Path(url)
         #download_path = self.cwd / url_path.name if not d_path else Path(d_path)
@@ -89,7 +96,7 @@ class Downloader:
             download_path = self.cwd
         else:
             download_path = Path(d_path)
-
+        # os.chdir(download_path)
         # making file path
         save_file = download_path / name_out 
         # checking if file already is there
@@ -98,9 +105,13 @@ class Downloader:
             return
 
         r = self.session.get(url)
-
-        size = float(r.headers['content-length'])
-        with open(save_file.absolute(), 'wb') as fd:
+        # size = float(r.headers['content-length'])
+        contentlength = r.headers.get('content-length')
+        if contentlength is not None:
+            size = float(contentlength)
+        else:
+            size = 1
+        with open(save_file, 'wb') as fd:
             tmp = 0
             print(f'Downloding: {save_file.name}')
             print(f'to {save_file.absolute()}')
@@ -108,9 +119,8 @@ class Downloader:
                 if chunk:
                     fd.write(chunk)
                     tmp += 1024
-                    bar = self._get_bar(tmp / size)
-                    output = f'\r{bar} {tmp/1000000:0.2f} / {size/1000000:0.2f} MB'
-                    stdout.write(output)
+                    if printprogess:
+                        self._print_progress(tmp, size)
             print('')
             print('Done')
 
@@ -151,8 +161,10 @@ def _test_write(path):
         return writable
 
 if __name__ == "__main__":
-    d_path = input_loop() #let user decide where to download
+    # d_path = input_loop() #let user decide where to download
+    d_path = Path('/home/bruno/Desktop')
     name = name_loop() # let user decide what name it will have
+    # name = 'Полное собрание сочинений. Братья Карамазовы. Части II-III, Федор Достоевский.djvu'
     d = Downloader()
     test_image_url = 'https://images.pexels.com/photos/459793/pexels-photo-459793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' 
-    d.download(test_image_url, d_path, name)
+    d.download(test_image_url, d_path, name, printprogess=False)

@@ -18,7 +18,7 @@ Add toolbox to PYTHONPATH
 
 If you're using bash (on a Mac or GNU/Linux distro), add this to your ~/.bashrc
 
-    export PYTHONPATH="${PYTHONPATH}:/path/to/toolbox"
+    export PYTHONPATH="${PYTHONPATH}:/path/to/toolbox_parent"
 
 [Stack Overflow answer](https://stackoverflow.com/questions/3402168/permanently-add-a-directory-to-pythonpath)
 #

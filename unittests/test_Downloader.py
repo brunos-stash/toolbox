@@ -1,5 +1,5 @@
 import unittest
-import Downloader
+from toolbox import Downloader
 from pathlib import Path
 
 class TestDownloader(unittest.TestCase):
@@ -13,9 +13,8 @@ class TestDownloader(unittest.TestCase):
         self.url = Path('https://images.pexels.com/photos/459793/pexels-photo-459793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
 
     def test_make_name(self):
-        self.assertEqual(self.d._make_name(self.url,'_3_'),'_3_.jpeg')
         self.assertEqual(self.d._make_name(self.url,'Полное собрание сочинений. Братья Карамазовы. Части II-III, Федор Достоевский.djvu'),'Полное собрание сочинений. Братья Карамазовы. Части II-III, Федор Достоевский.djvu')
-        
+        self.assertEqual(self.d._make_name(self.url,'_3_'),'_3_.jpeg')
         self.assertEqual(self.d._make_name(self.url, None),'pexels-photo-459793.jpeg')
         self.assertEqual(self.d._make_name(self.url,''),'pexels-photo-459793.jpeg')
         self.assertEqual(self.d._make_name(self.url,'?'),'pexels-photo-459793.jpeg')
