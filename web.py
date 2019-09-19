@@ -3,6 +3,7 @@ from sys import stdout
 from pathlib import Path
 import re
 import os
+print('something new')
 
 class Downloader:
     """
