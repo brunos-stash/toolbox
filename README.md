@@ -10,8 +10,28 @@ Toolbox is a collection of small useful and often used scripts to avoid rewritin
 ## Requirements
 - **`requests`**
 
+## How to install
+
+### Fresh installation
+1.  `git clone https://github.com/brunos-stash/toolbox.git`
+
+2.  `cd /path/to/toolbox`
+
+- **[optional]** activate virtual environment
+
+3.  depending on your python version
+
+        python setup.py install
+    
+    or
+
+        python3 setup.py install
+
+### Updating after installation (Linux only)
+
+    sh linux_update.sh
 ---
-## How to use systemwide
+## How to use systemwide without installation
 
 ### **Linux**
 Add toolbox to PYTHONPATH
