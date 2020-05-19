@@ -1,6 +1,7 @@
 import unittest
-from toolbox import Downloader
 from pathlib import Path
+# print(Path.cwd())
+from toolbox.web import Downloader
 
 class TestDownloader(unittest.TestCase):
     
@@ -9,7 +10,7 @@ class TestDownloader(unittest.TestCase):
         print('setUpClass')
 
     def setUp(self):
-        self.d = Downloader.Downloader()
+        self.d = Downloader()
         self.url = Path('https://images.pexels.com/photos/459793/pexels-photo-459793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
 
     def test_make_name(self):

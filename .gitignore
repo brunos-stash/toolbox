@@ -2,3 +2,6 @@ __pycache__
 build
 dist
 toolbox.egg-info
+.env
+.vscode
+*.code-workspace
